@@ -735,6 +735,13 @@
 	    	$("#dt_display_div").css({ "display" : "none" });
 	    });
 
+			$("#at_add").click(function() {
+	    	$("#at_add_div").css({ "display" : "block" });
+	    	$("#at_table_div").css({ "display" : "none" });
+	    	//$("#requirements_div").css({ "display" : "none" });
+	    	//$("#dt_display_div").css({ "display" : "none" });
+	    });
+
 	    $("#issue_add").click(function() {
 	    	$("#issues_add_div").css({ "display" : "block" });
 	    	$("#issues_buttons_div").css({ "display" : "none" });

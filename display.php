@@ -34,11 +34,20 @@ if ($_REQUEST['xapp'] == "CUSTOMERS") { ?>
 <?php	
 } else if ($_REQUEST['xapp'] == "AIRCRAFT") { ?>
 	<?php securityCheck("view_aircraft", false); ?>
-	Aircraft Types</font></div><br />
-	<center><table id='sh_table_id' class="ui celled table" style="width:100%">
+	Aircraft Types</font></div><div id='aircraft_types_buttons_div' style='display: inline;'>&nbsp;&nbsp;&nbsp; <input id='at_add' type='button' value='ADD AIRCRAFT TYPES' style="height:30px;width:150px;display:inline;margin:0 auto;" /></div>
+	<center>
+	<div id='at_table_div'><table id='sh_table_id' class="ui celled table" style="width:100%">
 	<thead><tr><th style='background-color: #cce5ff;'><font size='3' face='Arial'>Aircraft ID</font></th><th style='background-color: #cce5ff;'><font size='3' face='Arial'>Aircraft Type</font></th></tr></thead>
-	<tbody><?php loadAircraftTypes(); ?></tbody></table></center>
+	<tbody><?php loadAircraftTypes(); ?></tbody></table></div></center>
+	<p><div id='requirements_div' style='display:none;'></div>
 
+		<div id='at_add_div' style='display:none;'>
+			<center><form action='/scripts/x.php?xargs=NAS2018&action=AIRCRAFT-TYPE-CREATE' method='post' name='aircraft_type_form'>
+			<table border='0'><tr><td class='navtitle' colspan='2'>Aircraft Type</td></tr>
+			<tr><td style='padding: 7px; text-align: left;' width='100'><b>Aircraft Type:</b></td><td style='padding: 7px; text-align: left;'><input id='aircraft_type' name='aircraft_type' type='text' size='80' required="required" /></td></tr>
+			<tr><td colspan='2' align='right'><input id='rules_cancel' type='button' value='CANCEL' /> &nbsp; <input id='at_submit' type='submit' value='SUBMIT' /></td></tr>
+		</table></form></center>
+		</div></p>
 <?php	
 } else if ($_REQUEST['xapp'] == "SERVICES") { ?>
 	<?php securityCheck("view_services", false); ?>
@@ -92,7 +101,7 @@ if ($_REQUEST['xapp'] == "CUSTOMERS") { ?>
 		<div id='requirements_add_div' style='display:none;'>
 			<center><form action='/scripts/x.php?xargs=NAS2018&action=RULES-CREATE' method='post' name='rules_engine_form'><table border='0'><tr><td class='navtitle' colspan='2'>National Aviation Services Rules Engine</td></tr>
 
-			<tr><td style='padding: 7px; text-align: left;' width='65'><b>Name:</b></td><td style='padding: 7px; text-align: left;'><input id='rule_name' name='rule_name' type='text' size='80' required="required" /></td></tr>";
+			<tr><td style='padding: 7px; text-align: left;' width='65'><b>Name:</b></td><td style='padding: 7px; text-align: left;'><input id='rule_name' name='rule_name' type='text' size='80' required="required" /></td></tr>
 			<tr><td  colspan='2' style='padding: 7px; text-align: left;'><b>Description:</b><br /><textarea name='rule_description' rows='4' cols='100' required="required"></textarea></td></tr>
 			<tr><td colspan='2' align='right'><input id='rules_cancel' type='button' value='CANCEL' /> &nbsp; <input id='rules_submit' type='submit' value='SUBMIT' /></td></tr>
 		</table></form></center>

@@ -684,7 +684,11 @@ if (isset($_REQUEST['xargs']) && $_REQUEST['xargs'] == "NAS2018") {
 		}
 
 	}
-
+	if ($_REQUEST['action'] == "AIRCRAFT-TYPE-CREATE") {
+		$redirectURL = "/display.php?xapp=AIRCRAFT";
+		$sql = "INSERT INTO aircraft(aircraft_type) VALUES ('" . formatQuotes($_REQUEST['aircraft_type']) . "')";
+		execSQL($sql, true);
+	}
 	if ($_REQUEST['action'] == "RULES-CREATE") {
 		$redirectURL = "/display.php?xapp=SYSTEM-RULES";
 		$sql = "INSERT INTO rules_engine (employee_id, rule_name, rule_description) VALUES ('" . $_SESSION['user']->getEmployeeID() . "', '" . formatQuotes($_REQUEST['rule_name']) . "', '" . formatQuotes($_REQUEST['rule_description']) . "')";
