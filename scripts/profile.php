@@ -11,6 +11,9 @@ if (isset($_REQUEST['xargs']) && $_REQUEST['xargs'] == "NAS2018") {
 		array_push($financialArray, "current_monthly_rt");
 		array_push($financialArray, "current_hourly_rt");
 
+		array_push($financialArray, "increase_amount");
+		array_push($financialArray, "prev_annual_rt");
+
 		array_push($financialArray, "bonus");
 		array_push($financialArray, "ytd_bonus");
 		array_push($financialArray, "addl_pay");
