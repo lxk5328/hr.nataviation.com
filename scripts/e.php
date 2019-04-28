@@ -62,7 +62,6 @@ $dailyHourlyLimit = 8.5;
 $weeklyHourlyLimit = 42.5;
 
 
-
 //# SHIFT REPORT LEADS
 $shiftReportLeads = array();
 array_push($shiftReportLeads, "5");
@@ -75,6 +74,13 @@ array_push($shiftReportLeads, "74");
 array_push($shiftReportLeads, "77");
 array_push($shiftReportLeads, "78");
 array_push($shiftReportLeads, "92");
+
+array_push($shiftReportLeads, "32"); //# Junior Accounting Clerk
+array_push($shiftReportLeads, "67"); //# Accounting Assistant
+array_push($shiftReportLeads, "69"); //# System Analyst
+array_push($shiftReportLeads, "79"); //# Senior Accountant
+
+
 
 
 
