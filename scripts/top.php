@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/css/main.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="/css/dataTables.semanticui.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/buttons.semanticui.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/select2.css">
     <script type="text/javascript" language="javascript" src="/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/dataTables.semanticui.min.js"></script>
@@ -29,6 +30,7 @@
     <script type="text/javascript" language="javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" language="javascript" src="/js/popper.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/js/select2.js"></script>
     <style>
     div.dataTables_wrapper {
         width: 1200px;

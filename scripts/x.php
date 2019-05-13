@@ -176,7 +176,7 @@ if (isset($_REQUEST['xargs']) && $_REQUEST['xargs'] == "NAS2018") {
 		if ($_REQUEST['mapping'] == "0") {
 			foreach ($_REQUEST['tail_number'] as $t) {
 				if (trim($t) == "") { continue; }
-				$sql = "INSERT INTO shift_budget (shift_report_id, ns_customer_id, service_id, location, aircraft) VALUES (" . $shiftReportID . ", " . $_REQUEST['customer'][$rowIndex] . ", " . $_REQUEST['service'][$rowIndex] . ", '" . $l . "', '" . $t . "')";
+				$sql = "INSERT INTO shift_budget (shift_report_id, ns_customer_id, service_id, location, aircraft, aircrafttype) VALUES (" . $shiftReportID . ", " . $_REQUEST['customer'][$rowIndex] . ", " . $_REQUEST['service'][$rowIndex] . ", '" . $l . "', '" . $t . "', '" . $_REQUEST['aircraftType'][$rowIndex] . "')";
 				execSQL($sql, true);
 				$rowIndex++;
 			}

@@ -340,6 +340,47 @@
 		$("#locations").click(function() { top.location.href = "http://w3.nataviation.com/locations.php"; });
 		$("#logout").click(function() {top.location.href = "/scripts/exit.php"; });
 
+		function getTailSelections(customer, type, tailselElem) {
+			$.ajax(encodeURI('tailnumber.php?customer=' + customer + '&aircrafttype=' + type) , {
+					success: function(data) {
+						tailselElem.html(data);
+						tailselElem.select2();
+						//$('#main').html($(data).find('#main *'));
+						//$('#notification-bar').text('The page has been successfully loaded');
+					},
+					error: function() {
+						//$('#notification-bar').text('An error occurred');
+					}
+			});
+		}
+
+		function initCustomerAircraftTypeSel() {
+
+			$(".customersel").change(
+				function(){
+					var customerStr = $(this).find("option:selected").text();
+					var aircraftTypeStr = $(this).parent().parent().find('.aircrafttypesel').val();
+					var tailselElem	= $(this).parent().parent().find('.tailsel');
+					getTailSelections(customerStr, aircraftTypeStr, tailselElem);
+				}
+			);
+
+			$(".aircrafttypesel").change(
+				function(){
+					var customerStr = $(this).parent().parent().find('.customersel option:selected').text();			
+					var aircraftTypeStr = $(this).val();
+					var tailselElem	= $(this).parent().parent().find('.tailsel');
+					getTailSelections(customerStr, aircraftTypeStr, tailselElem);
+				}
+			);
+
+			$('.tailsel').select2();
+
+		}
+
+
+		initCustomerAircraftTypeSel();
+
 		$('.menu a').on('click', function() {
 	        $('.menu a').removeClass('active');
 	        $(this).addClass('active');
@@ -386,6 +427,7 @@
 
 	    $(document.body).on('click', "#add_service", function() {
 	    	$("#shift_services").append(baseServiceRow);
+				initCustomerAircraftTypeSel();
 	    });
 
 	    $(document.body).on('click', "#punch_clock_location_submit", function() {
