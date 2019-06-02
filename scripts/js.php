@@ -354,14 +354,30 @@
 			});
 		}
 
+		function getAircraftTypeSelections(customer, aircrafttypeElem) {
+			$.ajax(encodeURI('tailnumber.php?customer=' + customer + '&action=type') , {
+					success: function(data) {
+						
+						aircrafttypeElem.html(data);
+						//console.log(aircrafttypeElem.html());
+					//	aircraftTypeSElem.select2();
+						//$('#main').html($(data).find('#main *'));
+						//$('#notification-bar').text('The page has been successfully loaded');
+					},
+					error: function() {
+						//$('#notification-bar').text('An error occurred');
+					}
+			});
+		}
+
 		function initCustomerAircraftTypeSel() {
 
 			$(".customersel").change(
 				function(){
 					var customerStr = $(this).find("option:selected").text();
-					var aircraftTypeStr = $(this).parent().parent().find('.aircrafttypesel').val();
+					getAircraftTypeSelections(customerStr, $(this).parent().parent().find('.aircrafttypesel'));
 					var tailselElem	= $(this).parent().parent().find('.tailsel');
-					getTailSelections(customerStr, aircraftTypeStr, tailselElem);
+					getTailSelections(customerStr, null, tailselElem);
 				}
 			);
 
@@ -375,7 +391,7 @@
 			);
 
 			$('.tailsel').select2();
-
+			$('.customersel').select2();
 		}
 
 

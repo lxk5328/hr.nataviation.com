@@ -2,5 +2,10 @@
 <?php require_once("scripts/e.php"); ?>
 <?php
 //header('Content-type: application/json');
-echo genTailNumberSelection($_REQUEST['customer'], $_REQUEST['aircrafttype'], $_REQUEST['tailnumber']);
+if ( $_REQUEST['action'] == 'type') {
+    echo genAircraftTypeSelection($_REQUEST['customer'], null);
+}
+else {
+    echo genTailNumberSelection($_REQUEST['customer'], $_REQUEST['aircrafttype'], $_REQUEST['tailnumber']);
+}
 ?>

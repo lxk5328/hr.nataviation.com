@@ -1246,19 +1246,9 @@ function generateAttendance($locationCode, $controlMode, $coutMode = NULL, $loca
         $serviceRow .= ">" . $r[1] . "</option>";
       }
 
-      $serviceRow .= "</select></td><td style='padding: 7px; text-align: left;'><select class='aircrafttypesel' name='aircraftType[]'>";
-      $sql = "SELECT distinct(type) from fleet_list ORDER BY type";
-      $fleet_rs = execSQL($sql);
-  
-      foreach ($fleet_rs as $r) {
-        if ($r[0] == "") { continue; }
-        $serviceRow .= "<option value='" . $r[0] . "'";
-        if ($r3['aircrafttype'] == $r[0]) { $serviceRow .= " selected"; }
-        $serviceRow .= ">" . $r[0];
-        $serviceRow .= "</option>";
-      }
-  
-      $serviceRow .= "</select></td><td style='padding: 7px; text-align: left;'><select name='service[]'>";
+      $serviceRow .= "</select></td><td style='padding: 7px; text-align: left;'>";
+      $serviceRow .= genAircraftTypeSelection($r3['name'], $r3['aircrafttype']);
+      $serviceRow .= "</td><td style='padding: 7px; text-align: left;'><select name='service[]'>";
 
       $sql = "SELECT service_id, service, description FROM services ORDER BY service";
       $rs = execSQL($sql);
@@ -1275,7 +1265,6 @@ function generateAttendance($locationCode, $controlMode, $coutMode = NULL, $loca
       $serviceRow .= "</select></td><td style='padding: 7px; text-align: left;'>";
 
       if ($_SESSION['user']->getEmployeeID() == $operationsEmployeeID) {
-        error_log("tje rs is " . $r3['name'] . "asdfasd"  . $r3['aircrafttype']);
         $serviceRow .= genTailNumberSelection($r3['name'], $r3['aircrafttype'], $r3['aircraft']) . "</td></tr>";
       } else {
         $serviceRow .= $r3['aircraft'] . "<input type='hidden' name='tail_number[]' value='" . $r3['aircraft'] . "' /></td></tr>";
@@ -1364,6 +1353,26 @@ function genTailNumberSelection($customer, $aircrafttype, $tailnumber) {
   $out .= "</select>";
   return $out;
 }
+
+function genAircraftTypeSelection($customer, $aircrafttype) {
+  $sql = "SELECT distinct type from fleet_list where INSTR('" . $customer . "', customer) order by type";
+  //error_log("sql is " . $sql);
+  $rs = execSQL($sql);
+  $out="<select class='aircrafttypesel'>";
+  if ( is_null($aircrafttype) ) {
+    $out .= "<option value=''>   &nbsp;&nbsp;&nbsp;&nbsp;     </option>";
+  }
+
+  foreach ($rs as $r) {
+    if ($r[0] == "") { continue; }
+    $out .= "<option value='" . $r['type'] . "'";
+    if ( $r['type'] == $aircrafttype ) { $out .= " selected"; }
+    $out .= ">" . $r['type'] . "</option>";
+  }
+  $out .= "</select>";
+  return $out;
+}
+
 
 function printTimeClock() {
   global $shiftClockTime;
