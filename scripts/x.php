@@ -160,21 +160,16 @@ if (isset($_REQUEST['xargs']) && $_REQUEST['xargs'] == "NAS2018") {
 			}
 
 			if (isset($_REQUEST['save'])) { $sql .= "0)"; } else { $sql .= "1)"; }
-			error_log("sql is " . $sql);
 			$shiftReportID = execSQL($sql, true);
 		} else {
 			if (isset($_REQUEST['submit'])) {
 				$sql = "UPDATE shift_report SET reported = 1 WHERE shift_report_id = " . $shiftReportID;
-				error_log("sql is " . $sql);
-
 				execSQL($sql, true);
 			}
 		}
 
 		if ($updateMode) {
 			$sql = "DELETE FROM shift_budget WHERE shift_report_id = " . $shiftReportID;
-			error_log("sql is " . $sql);
-
 			execSQL($sql, true);
 		}
 
