@@ -160,16 +160,21 @@ if (isset($_REQUEST['xargs']) && $_REQUEST['xargs'] == "NAS2018") {
 			}
 
 			if (isset($_REQUEST['save'])) { $sql .= "0)"; } else { $sql .= "1)"; }
+			error_log("sql is " . $sql);
 			$shiftReportID = execSQL($sql, true);
 		} else {
 			if (isset($_REQUEST['submit'])) {
 				$sql = "UPDATE shift_report SET reported = 1 WHERE shift_report_id = " . $shiftReportID;
+				error_log("sql is " . $sql);
+
 				execSQL($sql, true);
 			}
 		}
 
 		if ($updateMode) {
 			$sql = "DELETE FROM shift_budget WHERE shift_report_id = " . $shiftReportID;
+			error_log("sql is " . $sql);
+
 			execSQL($sql, true);
 		}
 
@@ -375,7 +380,7 @@ if (isset($_REQUEST['xargs']) && $_REQUEST['xargs'] == "NAS2018") {
 			$mail->SMTPSecure = 'tls';
 			$mail->Host = 'smtp.office365.com';
 			$mail->Username = "do-not-reply@nataviation.com";
-			$mail->Password = "N@tion@l1";
+			$mail->Password = "TeamN@S5921";
 			$mail->Port = 587;
 
 			$mail->setFrom('do-not-reply@nataviation.com', 'National Aviation Services');

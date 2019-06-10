@@ -10,7 +10,7 @@ $mail->SMTPAuth = true;
 $mail->SMTPSecure = 'tls';
 $mail->Host = 'smtp.office365.com';
 $mail->Username = "do-not-reply@nataviation.com";
-$mail->Password = "N@tion@l1";
+$mail->Password = "TeamN@S5921";
 $mail->Port = 587;
 
 $mail->setFrom('do-not-reply@nataviation.com', 'National Aviation Services');

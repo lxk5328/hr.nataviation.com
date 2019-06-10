@@ -33,10 +33,14 @@ if (isset($_REQUEST['lc']) && $viewGlobalSchedule) {
 
 locationCheck();
 
+$sh_date = date("Y-m-d");
+if (isset($_REQUEST['d'])) {
+	$sh_date = $_REQUEST['d'];
+}
 ?>
 
 <form id='shift_attendance_form' name='shift_attendance_form' action='/scripts/x.php?xargs=NAS2018' method='post'><input type='hidden' name='action' value='SHIFT-REPORT' />
-<div style='display: inline;'><a href='/default.php'><img border='0' width='60' src='/images/internal_reload.gif' alt='Return to start page' title='Return to start page' /></a> &nbsp;&nbsp; <font style="color:#3a90c9; font:bold 30px/1.2em Arial, Helvetica, sans-serif; text-transform:uppercase;">Shift Report</font> &nbsp;&nbsp;<div id='attendance_location_div' style='display: inline;'><select style="height:30px;display:inline;margin:0 auto;" name='airport' id='airport'><?php echo $airportOptionList; ?></select> <div id='shift_control_div' style='display: none;'><input type='submit' name='save' value='SAVE' style="height:30px;width:150px;display:inline;margin:0 auto;" /> &nbsp; <?php if (!$viewGlobalSchedule) { ?><input type='button' style="height:30px;width:150px;display:inline;margin:0 auto;" id='shift_override' name='shift_override' value='OVERRIDE' /><?php } ?> &nbsp; <input name='submit' type='submit' value='SUBMIT' style="height:30px;width:150px;display:inline;margin:0 auto;" /> </div><p>&nbsp;</p><center>
+<div style='display: inline;'><a href='/default.php'><img border='0' width='60' src='/images/internal_reload.gif' alt='Return to start page' title='Return to start page' /></a> &nbsp;&nbsp; <font style="color:#3a90c9; font:bold 30px/1.2em Arial, Helvetica, sans-serif; text-transform:uppercase;">Shift Report</font> &nbsp;&nbsp;<div id='attendance_location_div' style='display: inline;'><select style="height:30px;display:inline;margin:0 auto;" name='airport' id='airport'><?php echo $airportOptionList; ?></select> <input type='text' size='15' id='shift_date' name='shift_date' value='<?php echo $sh_date;?>'/> <div id='shift_control_div' style='display: none;'><input type='submit' name='save' value='SAVE' style="height:30px;width:150px;display:inline;margin:0 auto;" /> &nbsp; <?php if (!$viewGlobalSchedule) { ?><input type='button' style="height:30px;width:150px;display:inline;margin:0 auto;" id='shift_override' name='shift_override' value='OVERRIDE' /><?php } ?> &nbsp; <input name='submit' type='submit' value='SUBMIT' style="height:30px;width:150px;display:inline;margin:0 auto;" /> </div><p>&nbsp;</p><center>
 
 
 <?php
@@ -61,4 +65,4 @@ if ($manager || in_array($_SESSION['user']->getPositionID(), $shiftReportLeads))
 </center></div>
 
 
-<?php require_once("scripts/bottom.php"); ?>
+<?php require_once("scripts/bottom.php"); ?>F

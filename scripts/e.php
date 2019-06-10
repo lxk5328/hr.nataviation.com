@@ -1216,7 +1216,7 @@ function generateAttendance($locationCode, $controlMode, $coutMode = NULL, $loca
     $shiftBudgetMode = true;
   }
 
-  $cout .= generateOutput("<center><p>&nbsp;</p><div id='override_div' style='display: none;'><table width='30%' border='1' bordercolor='#000000' style='border-collapse: collapse; border: 1px solid black;'><tr><td class='navtitle'>National Aviation Services Override Description <div style='float: right;'></td></tr><tr><td><textarea cols='150' rows='3' id='override_description' name='override_description'></textarea></td></tr></table><p>&nbsp;</p></div><table width='30%' border='1' bordercolor='#000000' style='border-collapse: collapse; border: 1px solid black;' id='shift_services'><tr><td colspan='4' class='navtitle'>National Aviation Services Budget Hours ", $coutMode);
+  $cout .= generateOutput("<center><p>&nbsp;</p><div id='override_div' style='display: none;'><table width='30%' border='1' bordercolor='#000000' style='border-collapse: collapse; border: 1px solid black;'><tr><td class='navtitle'>National Aviation Services Override Description <div style='float: right;'></td></tr><tr><td><textarea cols='150' rows='3' id='override_description' name='override_description'></textarea></td></tr></table><p>&nbsp;</p></div><table width='30%' border='1' bordercolor='#000000' style='border-collapse: collapse; border: 1px solid black;' id='shift_services'><tr><td colspan='6' class='navtitle'>National Aviation Services Budget Hours ", $coutMode);
 
   if ($controlMode) { $cout .= generateOutput("<div style='float: right;'><span style='cursor: pointer;' id='add_service' class='glyphicon glyphicon-plus' /></div>", $coutMode); }
   $cout .= generateOutput("</td></tr>", $coutMode);
@@ -1224,13 +1224,12 @@ function generateAttendance($locationCode, $controlMode, $coutMode = NULL, $loca
   $serviceRow = "";
   $sql = "SELECT location_code FROM services_mapping WHERE location_code = '" . $location . "'";
   $rs = execSQL($sql);
-
-  $sql = "SELECT n.name, s.service, b.aircraft, b.aircrafttype FROM ns_customers n, services s, shift_budget b WHERE b.shift_report_id = (SELECT shift_report_id FROM shift_report WHERE location = '" . $_SESSION['user']->getLocation() . "' AND shift_date = (CURDATE() - 1)) AND n.ns_customer_id = b.ns_customer_id AND s.service_id = b.service_id";
+  $sql = "SELECT n.name, s.service, b.aircraft, b.aircrafttype, shift_date FROM ns_customers n, services s, shift_budget b,  shift_report sr WHERE b.shift_report_id = sr.shift_report_id and sr.location = '" . $_SESSION['user']->getLocation() . "' AND shift_date = str_to_date('" . $_REQUEST['d'] . "','%Y-%m-%d') AND n.ns_customer_id = b.ns_customer_id AND s.service_id = b.service_id";
   $rs3 = execSQL($sql);
   if (sizeof($rs3) > 1 && ($_SESSION['user']->getEmployeeID() == $operationsEmployeeID)) { $updateMode = true; }
 
   if (sizeof($rs) == 1) {
-    $cout .= generateOutput("<tr bgcolor='#efefef'><td><b>Customer</b></td><td><b>Aircraft Type</b></td><td><b>Service</b></td><td><b>Tail Number</b></td></tr>", $coutMode);
+    $cout .= generateOutput("<tr bgcolor='#efefef'><td><b>Customer</b></td><td><b>Aircraft Type</b></td><td><b>Service</b></td><td><b>Tail Number</b></td><td><b>Shift Date</b></td></tr>", $coutMode);
 
     foreach ($rs3 as $r3) {
       if ($r3[0] == "") { continue; }
@@ -1265,9 +1264,9 @@ function generateAttendance($locationCode, $controlMode, $coutMode = NULL, $loca
       $serviceRow .= "</select></td><td style='padding: 7px; text-align: left;'>";
 
       if ($_SESSION['user']->getEmployeeID() == $operationsEmployeeID) {
-        $serviceRow .= genTailNumberSelection($r3['name'], $r3['aircrafttype'], $r3['aircraft']) . "</td></tr>";
+        $serviceRow .= genTailNumberSelection($r3['name'], $r3['aircrafttype'], $r3['aircraft']) . "</td><td>" . $r3['shift_date'] . "</td></tr>";
       } else {
-        $serviceRow .= $r3['aircraft'] . "<input type='hidden' name='tail_number[]' value='" . $r3['aircraft'] . "' /></td></tr>";
+        $serviceRow .= $r3['aircraft'] . "<input type='hidden' name='tail_number[]' value='" . $r3['aircraft'] . "' /></td><td>123</td></tr>";
       }
     }
 
@@ -1339,7 +1338,7 @@ function genTailNumberSelection($customer, $aircrafttype, $tailnumber) {
   $sql = "SELECT tail from fleet_list where INSTR('" . $customer . "', customer) and type='" . $aircrafttype . "'";
   //error_log("sql is " . $sql);
   $rs = execSQL($sql);
-  $out="<select style='width:100px' class='tailsel'>";
+  $out="<select style='width:100px' class='tailsel' name='tail_number[]'>";
   if ( is_null($tailnumber) ) {
     $out .= "<option value=''>   &nbsp;&nbsp;&nbsp;&nbsp;     </option>";
   }
@@ -1358,7 +1357,7 @@ function genAircraftTypeSelection($customer, $aircrafttype) {
   $sql = "SELECT distinct type from fleet_list where INSTR('" . $customer . "', customer) order by type";
   //error_log("sql is " . $sql);
   $rs = execSQL($sql);
-  $out="<select class='aircrafttypesel'>";
+  $out="<select class='aircrafttypesel' name='aircraftType[]'>";
   if ( is_null($aircrafttype) ) {
     $out .= "<option value=''>   &nbsp;&nbsp;&nbsp;&nbsp;     </option>";
   }

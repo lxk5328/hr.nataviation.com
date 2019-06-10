@@ -664,7 +664,10 @@
 	    	if ($("#end_date").val() == "") {
 	    		$("#end_date").val($("#start_date").val());
 	    	}
-	    });
+			});
+			
+			$("#shift_date").datepicker({ dateFormat: 'yy-mm-dd', maxDate: -1, defaultDate: -1});
+			//$("#shift_date").datepicker("setDate", -1);
 
 	    $(document.body).on('click', "#shift_schedule_change", function() { loadScheduleChangeMode(manager, $("#lc").val()); });
 	    $("#shift_schedule_cancel").click(function() { top.location.href="/schedule.php"; });
@@ -807,8 +810,9 @@
 	    	$("#dt_display_div").css({ "display" : "none" });
 	    });
 
-	    $(document.body).on('change', "#airport", function() { top.location.href="/attendance.php?l=" + $("#airport").val(); });
-	    $(document.body).on('click', "#issues_modify_cancel", function() { top.location.href="/display.php?xapp=ISSUES"; });
+	    $(document.body).on('change', "#airport", function() { top.location.href="/attendance.php?l=" + $("#airport").val() + "&d=" + $("#shift_date").val(); });
+			$(document.body).on('change', "#shift_date", function() { top.location.href="/attendance.php?l=" + $("#airport").val() + "&d=" + $("#shift_date").val(); });
+			$(document.body).on('click', "#issues_modify_cancel", function() { top.location.href="/display.php?xapp=ISSUES"; });
 	    $(document.body).on('click', "#rules_modify_cancel", function() { top.location.href="/display.php?xapp=SYSTEM-RULES"; });
 	    $(document.body).on('click', "#messages_cancel", function() { top.location.href="/messages.php?xapp=MESSAGES"; });
 	    $(document.body).on('click', "#location_cancel", function() { resetLocations(); });
